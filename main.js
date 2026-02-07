@@ -77,3 +77,34 @@ noBtn.addEventListener('mousemove', ()=>{
     noBtn.style.left = x + 'px';
     noBtn.style.top = y + 'px';
 });
+// Falling petals effect
+const petals = ["🌸", "🌷", "💮"];
+
+function createPetal() {
+    const petal = document.createElement("div");
+    petal.className = "petal";
+    petal.textContent = petals[Math.floor(Math.random() * petals.length)];
+
+    const size = Math.random() * 30 + 28; // bigger petals
+    const blur = Math.random() < 0.4 ? 4 : 0;
+    const duration = Math.random() * 10 + 12;
+
+    petal.style.fontSize = size + "px";
+    petal.style.filter = "blur(" + blur + "px)";
+    petal.style.animationDuration = duration + "s";
+
+    // Start anywhere across the screen
+    petal.style.left = Math.random() * 100 + "vw";
+
+    // Random diagonal drift
+    const driftX = Math.random() * 400 - 200 + "px";
+    petal.style.setProperty("--dx", driftX);
+
+    document.body.appendChild(petal);
+
+    setTimeout(() => {
+        petal.remove();
+    }, duration * 1000);
+}
+
+setInterval(createPetal, 450);
