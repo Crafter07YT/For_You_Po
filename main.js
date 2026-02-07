@@ -46,37 +46,50 @@ const noBtn = document.getElementById('noBtn');
 let popupActive = true;
 
 // Show popup on load
-popup.style.display='flex';
+popup.style.display = 'flex';
 document.body.classList.add('popup-active');
 
 // Fade popup on scroll
-window.addEventListener('scroll', ()=>{
-    if(popupActive){
+window.addEventListener('scroll', () => {
+    if (popupActive) {
         popup.classList.remove('fade-in');
         void popup.offsetWidth;
         popup.classList.add('fade-in');
     }
 });
 
-// Yes button click
-yesBtn.addEventListener('click', ()=>{
-    popup.style.display='none';
+// Yes button hides popup
+yesBtn.addEventListener('click', () => {
+    popup.style.display = 'none';
     document.body.classList.remove('popup-active');
-    // Do NOT add 'show' here; let IntersectionObserver trigger animation on scroll
-    popupActive=false;
+    popupActive = false;
+
+    // Trigger messages currently in view
+    boxes.forEach(box => {
+        const rect = box.getBoundingClientRect();
+        if (rect.top < window.innerHeight && rect.bottom > 0) {
+            box.classList.add('show');
+        }
+    });
 });
 
-// No button hover: move randomly in the viewport
-noBtn.addEventListener('mousemove', ()=>{
-    const padding = 20; // distance from screen edges
+// Move No button randomly on hover/touch
+function moveNoButton() {
+    const padding = 20;
     const maxX = window.innerWidth - noBtn.offsetWidth - padding;
     const maxY = window.innerHeight - noBtn.offsetHeight - padding;
     const x = Math.random() * maxX;
     const y = Math.random() * maxY;
-    noBtn.style.position='fixed';
+    noBtn.style.position = 'fixed';
     noBtn.style.left = x + 'px';
     noBtn.style.top = y + 'px';
-});
+}
+
+// Attach event listeners
+noBtn.addEventListener('mouseenter', moveNoButton);
+noBtn.addEventListener('mousemove', moveNoButton);
+noBtn.addEventListener('touchstart', moveNoButton);
+
 // Falling petals effect
 const petals = ["🌸", "🌷", "💮"];
 
