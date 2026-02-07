@@ -105,6 +105,9 @@ h1 {
     align-items:center;
     z-index:10000;
 }
+.popup-content button {
+    transition: transform 0.8s ease, left 0.8s ease, top 0.8s ease;
+}
 
 /* Popup overlay stays the same */
 .popup-content {
@@ -143,7 +146,7 @@ h1 {
 .slide-in {
     transform: translateY(50px);
     opacity:0;
-    animation: slideIn 0.8s forwards;
+    animation: slideIn 1.8s forwards;
 }
 
 @keyframes slideIn {
