@@ -91,8 +91,8 @@ function sampleTextPixels() {
     for (let x = 0; x < W; x += STEP) {
       if (data[(y * W + x) * 4] > 120) {
         pts.push([
-          (x - W / 2) * 0.28,
-          -(y - H / 2) * 0.28,
+          (x - W / 2) * 0.32,
+          -(y - H / 2) * 0.32,
           (Math.random() - 0.5) * 10,
         ]);
       }
